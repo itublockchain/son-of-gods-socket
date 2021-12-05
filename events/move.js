@@ -1,7 +1,8 @@
 
 
 const move = (socket, msg) => {
-    
-
-    socket.broadcast.emit("move", msg);
+    const newMsg = {
+        table: msg.table.reverse()
+    };
+    socket.broadcast.emit("move", newMsg);
 };
