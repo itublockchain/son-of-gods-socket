@@ -22,11 +22,10 @@ const server = http.createServer(app);
 const IO = new Server(server, {
     cors: {
         origin: "*",
-        methods: ["GET", "POST"],
         allowedHeaders: ["*"],
         credentials: true
     },
-    path: "/socket.io",
+    methods: ["GET", "POST"],
     maxHttpBufferSize: 5e6
 });
 

@@ -10,6 +10,7 @@ export default function(socket) {
         if (file == "index.js")
             return;
         
+        console.log("import et");
         const filename = file.split(".")[0];
         const _function = await import(`./${file}`);
         socket.on(filename, (msg) => _function.default(socket, msg));
