@@ -9,7 +9,7 @@ let empty_rooms = [];
 
 IO.on("connection", async (socket) => {
 
-    const address = socket.handshake.query.address;
+    const { address, ...rest } = socket.handshake.query;
     console.log(address);
     let room_name;
 
@@ -30,6 +30,11 @@ IO.on("connection", async (socket) => {
 
     socket.data.room_name = room_name;
     socket.data.address = address;
+    socket.data = {
+        ...rest,
+        address,
+        room_name
+    };
 
     const usersInRoom = await IO.in(room_name).fetchSockets();
 
@@ -39,7 +44,7 @@ IO.on("connection", async (socket) => {
 
 
     if (other_users.length > 0) {
-        socket.emit("otherUserAddress", other_users[0].data.address)
+        socket.emit("otherUser", other_users[0].data)
     }
 
     events(socket);
